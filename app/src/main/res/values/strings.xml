@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Work Calendar</string>
+    <string name="server_client_id">871294901586-h22mimbu6n69sbae2usomnjqc33gqh81.apps.googleusercontent.com</string>
+    <string name="sign_out">Sign out</string>
+    <string name="say_hi">Hi, %s</string>
+    <string name="build_schedule">Build schedule</string>
+    <string name="schedule_was_built">Schedule was successfully built</string>
+    <string name="please_sign_in">Please, sign in</string>
 </resources>
