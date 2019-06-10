@@ -19,8 +19,8 @@
 
     <TextView
         android:id="@+id/hi_dialog_text_view"
-        android:layout_width="132dp"
-        android:layout_height="43dp"
+        android:layout_width="151dp"
+        android:layout_height="42dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="8dp"
