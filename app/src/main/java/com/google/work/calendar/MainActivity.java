@@ -14,13 +14,15 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.Task;
 
+import static com.google.work.calendar.utils.Scope.CALENDAR_SCOPE;
+import static com.google.work.calendar.utils.Status.RC_SIGN_IN;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String USER_DISPLAY_NAME = "com.google.work.calendar.user.display.name";
+    public static final String APPLICATION_NAME = "Work Calendar App";
 
     private static final String TAG = "MainActivity";
-    private static final int RC_SIGN_IN = 9001;
-    private static final String CALENDAR_SCOPE = "https://www.googleapis.com/auth/calendar";
 
     private GoogleSignInClient signInClient;
 

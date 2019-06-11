@@ -30,18 +30,54 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button style="@style/PrimaryFlatButton"
+    <Button
         android:id="@+id/build_schedule"
-        android:layout_width="143dp"
-        android:layout_height="53dp"
+        style="@style/PrimaryFlatButton"
+        android:layout_width="137dp"
+        android:layout_height="41dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="456dp"
+        android:layout_marginTop="524dp"
         android:layout_marginEnd="8dp"
         android:layout_weight="1"
         android:text="@string/build_schedule"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/choose_date"
+        style="@style/PrimaryFlatButton"
+        android:layout_width="122dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="1"
+        android:onClick="showDatePicker"
+        android:text="@string/choose_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.102"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/choose_a_brigade_view_text" />
+
+    <TextView
+        android:id="@+id/choose_a_brigade_view_text"
+        android:layout_width="99dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/brigade_prompt"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hi_dialog_text_view" />
+
+    <Spinner
+        android:id="@+id/brigade_spinner"
+        android:layout_width="36dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="36dp"
+        android:prompt="@string/brigade_prompt"
+        app:layout_constraintStart_toEndOf="@+id/choose_a_brigade_view_text"
+        app:layout_constraintTop_toBottomOf="@+id/hi_dialog_text_view" />
 
 </android.support.constraint.ConstraintLayout>
