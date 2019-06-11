@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Рабочий календарь</string>
+    <string name="brigade_prompt">Бригада №</string>
+    <string name="build_schedule">Построить график</string>
+    <string name="choose_date">Выберите дату</string>
+    <string name="creation_is_in_progress">Cоздаю…</string>
+    <string name="failed_to_build_schedule">Не могу построить график :(</string>
+    <string name="month_prompt">Месяц</string>
+    <string name="please_sign_in">Пожалуйста, войдите в аккаунт</string>
+    <string name="say_hi">Привет, %s</string>
+    <string name="schedule_was_built">График успешно пострен</string>
+    <string name="sign_out">Выйти</string>
+    <string name="server_client_id">871294901586-h22mimbu6n69sbae2usomnjqc33gqh81.apps.googleusercontent.com</string>
+    <string name="logo">логотип</string>
+</resources>

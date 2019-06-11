@@ -6,35 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".SetupScheduleActivity">
 
-    <Button
-        android:id="@+id/sign_out_button"
-        android:layout_width="89dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_weight="1"
-        android:text="@string/sign_out"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/hi_dialog_text_view"
-        android:layout_width="151dp"
-        android:layout_height="42dp"
+        android:layout_width="188dp"
+        android:layout_height="37dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="8dp"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/sign_out_button"
-        app:layout_constraintHorizontal_bias="0.752"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/build_schedule"
         style="@style/PrimaryFlatButton"
-        android:layout_width="137dp"
-        android:layout_height="41dp"
+        android:layout_width="147dp"
+        android:layout_height="39dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="524dp"
         android:layout_marginEnd="8dp"
@@ -47,10 +35,10 @@
     <Button
         android:id="@+id/choose_date"
         style="@style/PrimaryFlatButton"
-        android:layout_width="122dp"
-        android:layout_height="49dp"
+        android:layout_width="123dp"
+        android:layout_height="39dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="8dp"
         android:layout_weight="1"
         android:onClick="showDatePicker"

@@ -9,8 +9,9 @@
     <string name="please_sign_in">Please, sign in</string>
     <string name="brigade_prompt">Brigade №</string>
     <string name="month_prompt">Month</string>
-    <string name="creating_message">creating…</string>
+    <string name="creation_is_in_progress">Creating…</string>
     <string name="failed_to_build_schedule">Failed to build schedule :(</string>
+    <string name="logo">logo</string>
 
     <string-array name="brigade">
         <item>1</item>

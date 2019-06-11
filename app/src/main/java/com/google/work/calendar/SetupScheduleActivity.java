@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -58,8 +61,6 @@ public class SetupScheduleActivity extends AppCompatActivity implements DatePick
 
         signInClient = GoogleSignIn.getClient(this, gso);
 
-        findViewById(R.id.sign_out_button).setOnClickListener(v -> signOut());
-
         findViewById(R.id.build_schedule).setOnClickListener(v -> buildSchedule());
 
         String userName = getIntent().getStringExtra(USER_DISPLAY_NAME);
@@ -95,6 +96,22 @@ public class SetupScheduleActivity extends AppCompatActivity implements DatePick
                 Toast.makeText(this, R.string.failed_to_build_schedule, Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.sign_out) {
+            signOut();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void signOut() {
@@ -148,7 +165,6 @@ public class SetupScheduleActivity extends AppCompatActivity implements DatePick
             return new DatePickerDialog(getActivity(), callbackListener, year, month, day);
         }
 
-
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             if (callbackListener != null) {
@@ -160,7 +176,7 @@ public class SetupScheduleActivity extends AppCompatActivity implements DatePick
     public void showProgressDialog() {
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage(getString(R.string.creating_message));
+            progressDialog.setMessage(getString(R.string.creation_is_in_progress));
             progressDialog.setIndeterminate(true);
         }
         progressDialog.show();
