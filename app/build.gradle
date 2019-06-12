@@ -37,4 +37,6 @@ dependencies {
     implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.8'
 
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.8'
+    testImplementation 'junit:junit:4.12'
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.12.2'
 }

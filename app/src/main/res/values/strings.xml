@@ -12,8 +12,12 @@
     <string name="creation_is_in_progress">Creating…</string>
     <string name="failed_to_build_schedule">Failed to build schedule :(</string>
     <string name="logo">logo</string>
-    <string name="create_schedule_confirmation_dialog_message">You are creating a schedule for brigade № %s for %s with the first night shift starting at %s. Proceed?</string>
+    <string name="create_schedule_confirmation_dialog_message">You are creating a schedule for brigade № %s for %s with the first %s shift starting at %s. Proceed?</string>
     <string name="create_schedule_confirmation_dialog_title">Create schedule?</string>
+    <string name="work_shift_prompt">Work shift</string>
+    <string name="day_shift">day</string>
+    <string name="night_shift">night</string>
+    <string name="evening_shift">evening</string>
 
     <string-array name="brigade">
         <item>1</item>
@@ -22,18 +26,10 @@
         <item>4</item>
     </string-array>
 
-    <string-array name="months">
-        <item>Jan</item>
-        <item>Feb</item>
-        <item>Mar</item>
-        <item>Apr</item>
-        <item>May</item>
-        <item>Jun</item>
-        <item>Jul</item>
-        <item>Aug</item>
-        <item>Sep</item>
-        <item>Oct</item>
-        <item>Nov</item>
-        <item>Dec</item>
+    <string-array name="work_shift">
+        <item>Day</item>
+        <item>Night</item>
+        <item>Evening</item>
     </string-array>
+
 </resources>

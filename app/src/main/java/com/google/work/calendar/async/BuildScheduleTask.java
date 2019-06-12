@@ -22,6 +22,7 @@ import com.google.work.calendar.R;
 import com.google.work.calendar.SetupScheduleActivity;
 import com.google.work.calendar.converter.EventConverter;
 import com.google.work.calendar.dto.CalendarEvent;
+import com.google.work.calendar.dto.WorkShift;
 import com.google.work.calendar.dto.WorkingDay;
 import com.google.work.calendar.service.WorkingCalendar;
 import com.google.work.calendar.utils.LocaleUtils;
@@ -37,8 +38,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
+import static com.google.work.calendar.utils.DateUtils.TIME_ZONE_UTC_PLUS_3;
 import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
 
 public class BuildScheduleTask extends AsyncTask<Account, Void, Void> {
@@ -49,19 +50,20 @@ public class BuildScheduleTask extends AsyncTask<Account, Void, Void> {
     private static final EventConverter eventConverter = new EventConverter();
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final HttpTransport HTTP_TRANSPORT = AndroidHttp.newCompatibleTransport();
-    private static final TimeZone TIME_ZONE = TimeZone.getTimeZone("UTC+3");
 
     private final int brigade;
-    private LocalDate startFrom;
+    private final LocalDate startFrom;
+    private final WorkShift workShift;
+    private final WeakReference<SetupScheduleActivity> setupScheduleActivity;
 
-    private WeakReference<SetupScheduleActivity> setupScheduleActivity;
-
-    public BuildScheduleTask(SetupScheduleActivity setupScheduleActivity,
-                             int brigade,
-                             LocalDate startFrom) {
+    public BuildScheduleTask(final SetupScheduleActivity setupScheduleActivity,
+                             final int brigade,
+                             final LocalDate startFrom,
+                             final WorkShift workShift) {
         this.setupScheduleActivity = new WeakReference<>(setupScheduleActivity);
         this.brigade = brigade;
         this.startFrom = startFrom;
+        this.workShift = workShift;
     }
 
     @Override
@@ -98,7 +100,7 @@ public class BuildScheduleTask extends AsyncTask<Account, Void, Void> {
                     startFrom,
                     startFrom.with(lastDayOfMonth()));
             final Locale locale = LocaleUtils.getLocaleFor(context);
-            final List<WorkingDay> workingDays = workingCalendar.buildScheduleFor(period);
+            final List<WorkingDay> workingDays = workingCalendar.buildScheduleFor(period, workShift);
             final List<CalendarEvent> events = eventConverter.convert(locale, workingDays);
 
             for (final CalendarEvent event : events) {
@@ -146,11 +148,11 @@ public class BuildScheduleTask extends AsyncTask<Account, Void, Void> {
         final EventDateTime start = new EventDateTime().
                 setDateTime(new DateTime(
                         Date.from(event.getFrom().atZone(ZoneId.systemDefault()).toInstant()),
-                        TIME_ZONE));
+                        TIME_ZONE_UTC_PLUS_3));
         final EventDateTime end = new EventDateTime().
                 setDateTime(new DateTime(
                         Date.from(event.getTo().atZone(ZoneId.systemDefault()).toInstant()),
-                        TIME_ZONE));
+                        TIME_ZONE_UTC_PLUS_3));
 
         apiEvent.setStart(start);
         apiEvent.setEnd(end);

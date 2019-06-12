@@ -71,7 +71,7 @@
         android:entries="@array/brigade"
         app:layout_constraintBottom_toTopOf="@+id/build_schedule"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.445"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.348" />
@@ -85,5 +85,35 @@
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/choose_date"
         app:layout_constraintTop_toBottomOf="@+id/hi_dialog_text_view" />
+
+    <TextView
+        android:id="@+id/selected_work_shift"
+        android:layout_width="118dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/work_shift_prompt"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/choose_date" />
+
+    <Spinner
+        android:id="@+id/work_shift_spinner"
+        android:layout_width="103dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="240dp"
+        android:layout_weight="3"
+        app:layout_constraintBottom_toTopOf="@+id/build_schedule"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/selected_work_shift"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.882" />
 
 </android.support.constraint.ConstraintLayout>

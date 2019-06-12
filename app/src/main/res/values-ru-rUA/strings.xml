@@ -14,5 +14,16 @@
     <string name="server_client_id">871294901586-h22mimbu6n69sbae2usomnjqc33gqh81.apps.googleusercontent.com</string>
     <string name="logo">логотип</string>
     <string name="create_schedule_confirmation_dialog_title">Создать график?</string>
-    <string name="create_schedule_confirmation_dialog_message">Вы создаете график для бригады № %s на %s, график ночных смен начинается с %s. Продолжить?</string>
+    <string name="create_schedule_confirmation_dialog_message">Вы создаете график для бригады № %s на %s, первая %s смена начинается с %s. Продолжить?</string>
+    <string name="work_shift_prompt">Смена</string>
+    <string name="day_shift">дневная</string>
+    <string name="night_shift">ночаня</string>
+    <string name="evening_shift">вечерняя</string>
+
+    <string-array name="work_shift">
+        <item>День</item>
+        <item>Ночь</item>
+        <item>Вечер</item>
+    </string-array>
+
 </resources>

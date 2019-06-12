@@ -1,9 +1,9 @@
 package com.google.work.calendar.dto;
 
+import java.time.LocalTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import java.time.LocalTime;
 
 @Getter
 @AllArgsConstructor
@@ -18,4 +18,20 @@ public enum WorkShift {
     private String shortLabel;
     private LocalTime start;
     private LocalTime end;
+
+    public boolean isNight() {
+        return this == NIGHT;
+    }
+
+    public boolean isDay() {
+        return this == DAY;
+    }
+
+    public boolean isEvening() {
+        return this == EVENING;
+    }
+
+    public boolean isDayOff() {
+        return this == DAY_OFF;
+    }
 }

@@ -27,16 +27,20 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.Scope;
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
+import com.google.common.collect.ImmutableMap;
 import com.google.work.calendar.async.BuildScheduleTask;
+import com.google.work.calendar.dto.WorkShift;
 import com.google.work.calendar.utils.DateUtils;
 import com.google.work.calendar.utils.LocaleUtils;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Map;
 
 import static com.google.work.calendar.MainActivity.USER_DISPLAY_NAME;
 import static com.google.work.calendar.utils.Status.RC_RECOVERABLE;
@@ -46,6 +50,15 @@ public class SetupScheduleActivity extends AppCompatActivity implements DatePick
 
     private static final String TAG = "SetupScheduleActivity";
     private static final String CALENDAR_SCOPE = "https://www.googleapis.com/auth/calendar";
+    private static final Map<Integer, WorkShift> WORK_SHIFTS = ImmutableMap.of(
+            0, WorkShift.DAY,
+            1, WorkShift.NIGHT,
+            2, WorkShift.EVENING);
+
+    private static final Map<WorkShift, Integer> WORK_SHIFT_LABELS = ImmutableMap.of(
+            WorkShift.DAY, R.string.day_shift,
+            WorkShift.NIGHT, R.string.night_shift,
+            WorkShift.EVENING, R.string.evening_shift);
 
     private GoogleSignInClient signInClient;
 
@@ -53,6 +66,7 @@ public class SetupScheduleActivity extends AppCompatActivity implements DatePick
 
     private int brigadeNumber = 1;
     private LocalDate startFrom;
+    private WorkShift workShift;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +104,23 @@ public class SetupScheduleActivity extends AppCompatActivity implements DatePick
             }
         });
 
+        Spinner workShiftSpinner = findViewById(R.id.work_shift_spinner);
+        ArrayAdapter<CharSequence> workingShiftAdapter = ArrayAdapter.createFromResource(this,
+                R.array.work_shift, android.R.layout.simple_spinner_item);
+        workingShiftAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        workShiftSpinner.setAdapter(workingShiftAdapter);
+        workShiftSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                workShift = ObjectUtils.defaultIfNull(WORK_SHIFTS.get(position), WorkShift.DAY);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // do nothing
+            }
+        });
+
         Locale locale = LocaleUtils.getLocaleFor(getApplicationContext());
         TextView selectedDate = findViewById(R.id.selected_date);
         this.startFrom = LocalDate.now();
@@ -103,7 +134,8 @@ public class SetupScheduleActivity extends AppCompatActivity implements DatePick
                 .setMessage(getString(
                         R.string.create_schedule_confirmation_dialog_message,
                         String.valueOf(brigadeNumber),
-                        startFrom.getMonth().getDisplayName(TextStyle.FULL_STANDALONE, locale),
+                        StringUtils.capitalize(startFrom.getMonth().getDisplayName(TextStyle.FULL_STANDALONE, locale)),
+                        getString(WORK_SHIFT_LABELS.get(workShift)),
                         startFrom.format(DateUtils.DATE_TIME_FORMATTER.withLocale(locale))))
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton(android.R.string.yes, (dialog, whichButton) -> buildSchedule())
@@ -146,11 +178,20 @@ public class SetupScheduleActivity extends AppCompatActivity implements DatePick
         GoogleSignInAccount acc = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if (acc != null) {
             showProgressDialog();
-            new BuildScheduleTask(this, brigadeNumber, startFrom == null ? LocalDate.now() : startFrom).execute(acc.getAccount());
+            new BuildScheduleTask(this,
+                    brigadeNumber,
+                    startFrom == null ? LocalDate.now() : startFrom,
+                    workShift == null ? WorkShift.DAY : workShift
+            ).execute(acc.getAccount());
         } else {
             Toast.makeText(this, R.string.please_sign_in, Toast.LENGTH_SHORT).show();
             finish();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
     }
 
     public void showDatePicker(View v) {
