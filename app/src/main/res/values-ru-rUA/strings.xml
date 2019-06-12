@@ -13,4 +13,6 @@
     <string name="sign_out">Выйти</string>
     <string name="server_client_id">871294901586-h22mimbu6n69sbae2usomnjqc33gqh81.apps.googleusercontent.com</string>
     <string name="logo">логотип</string>
+    <string name="create_schedule_confirmation_dialog_title">Создать график?</string>
+    <string name="create_schedule_confirmation_dialog_message">Вы создаете график для бригады № %s на %s, график ночных смен начинается с %s. Продолжить?</string>
 </resources>

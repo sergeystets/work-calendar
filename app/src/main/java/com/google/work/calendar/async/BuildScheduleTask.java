@@ -24,6 +24,7 @@ import com.google.work.calendar.converter.EventConverter;
 import com.google.work.calendar.dto.CalendarEvent;
 import com.google.work.calendar.dto.WorkingDay;
 import com.google.work.calendar.service.WorkingCalendar;
+import com.google.work.calendar.utils.LocaleUtils;
 import com.google.work.calendar.utils.Scope;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -35,6 +36,7 @@ import java.time.ZoneId;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
@@ -95,9 +97,9 @@ public class BuildScheduleTask extends AsyncTask<Account, Void, Void> {
             final Pair<LocalDate, LocalDate> period = Pair.of(
                     startFrom,
                     startFrom.with(lastDayOfMonth()));
-
+            final Locale locale = LocaleUtils.getLocaleFor(context);
             final List<WorkingDay> workingDays = workingCalendar.buildScheduleFor(period);
-            final List<CalendarEvent> events = eventConverter.convert(workingDays);
+            final List<CalendarEvent> events = eventConverter.convert(locale, workingDays);
 
             for (final CalendarEvent event : events) {
                 final Event apiEvent = convert(event);

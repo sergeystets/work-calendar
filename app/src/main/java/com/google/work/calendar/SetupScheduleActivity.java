@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -27,11 +28,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.Scope;
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.google.work.calendar.async.BuildScheduleTask;
+import com.google.work.calendar.utils.DateUtils;
+import com.google.work.calendar.utils.LocaleUtils;
 
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.Calendar;
+import java.util.Locale;
 
 import static com.google.work.calendar.MainActivity.USER_DISPLAY_NAME;
 import static com.google.work.calendar.utils.Status.RC_RECOVERABLE;
@@ -61,7 +66,7 @@ public class SetupScheduleActivity extends AppCompatActivity implements DatePick
 
         signInClient = GoogleSignIn.getClient(this, gso);
 
-        findViewById(R.id.build_schedule).setOnClickListener(v -> buildSchedule());
+        findViewById(R.id.build_schedule).setOnClickListener(v -> openConfirmDialog());
 
         String userName = getIntent().getStringExtra(USER_DISPLAY_NAME);
         TextView hiTextView = findViewById(R.id.hi_dialog_text_view);
@@ -84,6 +89,25 @@ public class SetupScheduleActivity extends AppCompatActivity implements DatePick
                 // do nothing
             }
         });
+
+        Locale locale = LocaleUtils.getLocaleFor(getApplicationContext());
+        TextView selectedDate = findViewById(R.id.selected_date);
+        this.startFrom = LocalDate.now();
+        selectedDate.setText(this.startFrom.format(DateUtils.DATE_TIME_FORMATTER.withLocale(locale)));
+    }
+
+    private void openConfirmDialog() {
+        Locale locale = LocaleUtils.getLocaleFor(getApplicationContext());
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.create_schedule_confirmation_dialog_title))
+                .setMessage(getString(
+                        R.string.create_schedule_confirmation_dialog_message,
+                        String.valueOf(brigadeNumber),
+                        startFrom.getMonth().getDisplayName(TextStyle.FULL_STANDALONE, locale),
+                        startFrom.format(DateUtils.DATE_TIME_FORMATTER.withLocale(locale))))
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.yes, (dialog, whichButton) -> buildSchedule())
+                .setNegativeButton(android.R.string.no, null).show();
     }
 
     @Override
@@ -137,6 +161,9 @@ public class SetupScheduleActivity extends AppCompatActivity implements DatePick
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         this.startFrom = LocalDate.of(year, month + 1, dayOfMonth);
+        TextView selectedDate = findViewById(R.id.selected_date);
+        Locale locale = LocaleUtils.getLocaleFor(getApplicationContext());
+        selectedDate.setText(this.startFrom.format(DateUtils.DATE_TIME_FORMATTER.withLocale(locale)));
     }
 
     public static final class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
