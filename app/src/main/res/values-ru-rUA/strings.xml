@@ -19,6 +19,7 @@
     <string name="day_shift">дневная</string>
     <string name="night_shift">ночаня</string>
     <string name="evening_shift">вечерняя</string>
+    <string name="version">v 1.0</string>
 
     <string-array name="work_shift">
         <item>День</item>

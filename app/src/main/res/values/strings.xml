@@ -18,6 +18,7 @@
     <string name="day_shift">day</string>
     <string name="night_shift">night</string>
     <string name="evening_shift">evening</string>
+    <string name="version">v 1.0</string>
 
     <string-array name="brigade">
         <item>1</item>
